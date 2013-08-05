@@ -1,0 +1,28 @@
+{
+    "name": "jquery-scrollbox",
+    "version": "1.0.1",
+    "title": "jQuery Scrollbox",
+    "description": "A simple, lightweight jQuery plugin to scroll a list like carousel or traditional marquee.",
+    "keywords": [
+        "carousel",
+        "marquee",
+        "scroll"
+    ],
+    "author": {
+        "name": "Hunter Wu",
+        "url": "https://github.com/wmh/",
+        "email": "hunter.wu@gmail.com"
+    },
+    "licenses": [
+        {
+            "type": "MIT",
+            "url": "http://ionden.com/a/plugins/licence-en.html"
+        }
+    ],
+    "homepage": "https://github.com/wmh/jquery-scrollbox",
+    "demo": "http://wmh.github.io/jquery-scrollbox/",
+    "download": "https://github.com/wmh/jquery-scrollbox/archive/master.zip",
+    "dependencies": {
+        "jquery": ">=1.4"
+    }
+}
