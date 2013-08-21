@@ -15,13 +15,13 @@ jQuery Scrollbox is a lightweight plugin that enables you to scroll a list of ht
 
 ## Basic Usage
 
-1. Include the latest jQuery library and jQuery Scrollbox Plugin on the page
+### 1. Include the latest jQuery library and jQuery Scrollbox Plugin on the page
 ```html
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script src="jquery.scrollbox.js"></script>
 ```
 
-1. Create a list of text you want to scroll
+### 2. Create a list of text you want to scroll
 ```html
 <div id="demo" class="scroll-text">
   <ul>
@@ -32,7 +32,11 @@ jQuery Scrollbox is a lightweight plugin that enables you to scroll a list of ht
 </div>
 ```
 
-1. Initialization
+### 3. Style html elements as below
+
+![scrollbox elements diagram](http://wmh.github.io/jquery-scrollbox/img/wireframe.png)
+
+### 4. Initialization
 ```js
 $('#demo').scrollbox();
 ```
