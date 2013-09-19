@@ -3,6 +3,7 @@
 <head>
 <title>jquery-scrollbox.js demo</title>
 <link href="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.2/css/bootstrap.min.css" rel="stylesheet">
+<link href="http://fonts.googleapis.com/css?family=Amaranth:400,700" rel="stylesheet" type="text/css">
 <link href="demo.css" rel="stylesheet">
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 <script src="../jquery.scrollbox.js"></script>
@@ -13,6 +14,7 @@
     <h1 class="muted">jQuery Scrollbox</h1>
   </div>
   <div class="body-content">
+
     <h2>Example - 1</h2>
     <pre>
 $('#demo1').scrollbox();</pre>
@@ -97,7 +99,6 @@ $('#demo1').scrollbox();</pre>
         <li><a href="http://www.faceyourmanga.com/mangatar.php?id=7004" target="_blank"><img src="img/normal_7004.png"></a></li>
       </ul>
     </div>
-  </div>
 
     <h2>Example - 5</h2>
     <pre>$('#demo5').scrollbox({
@@ -133,6 +134,30 @@ $('#demo5-forward').click(function () {
       <button class="btn" id="demo5-backward"><i class="icon-chevron-left"></i> Backward</button>
       <button class="btn" id="demo5-forward">Forward <i class="icon-chevron-right"></i></button>
     </div>
+
+    <h2>Example - 6</h2>
+    <pre>$('#demo6').scrollbox({
+  direction: 'h',
+  distance: 140
+});</pre>
+    <div id="demo6" class="scroll-img">
+      <ul>
+        <li><p>1</p></li>
+        <li><p>2</p></li>
+        <li><p>3</p></li>
+        <li><p>4</p></li>
+      </ul>
+    </div>
+
+    <h3>queue container:</h3>
+    <p>You can append items here, which are pulling from the server side.</p>
+    <div id="demo6-queue" class="scroll-img">
+      <ul>
+        <li><p>5</p></li>
+        <li><p>6</p></li>
+      </ul>
+    </div>
+
   </div>
 </div>
 <script>
@@ -163,6 +188,17 @@ $(function () {
   $('#demo5-forward').click(function () {
     $('#demo5').trigger('forward');
   });
+  $('#demo6').scrollbox({
+    direction: 'h',
+    distance: 134,
+    queue: 'demo6-queue'
+  });
+  var queueNext = 7;
+  (function () {
+    $('#demo6-queue ul').append('<li><p>'+ queueNext +'</p></li>');
+    queueNext++;
+    setTimeout(arguments.callee, 2000 + parseInt(Math.random() * 2000, 10));
+  }());
 });
 </script>
 </body>
