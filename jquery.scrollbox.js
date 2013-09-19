@@ -74,9 +74,9 @@ $.fn.scrollbox = function(config) {
 
       if (newScrollOffset >= scrollDistance) {
         for (i = 0; i < config.switchItems; i++) {
-          if (config.queue && config.queue.hasChildNodes() && config.queue.getElementsByTagName('li').length > 0) {
-            containerUL.append(config.queue.getElementsByTagName('li')[0]);
-            containerUL.remove(containerUL.children('li:first-child'));
+          if (config.queue && config.queue.find('li').length > 0) {
+            containerUL.append(config.queue.find('li')[0]);
+            containerUL.children('li:first-child').remove();
           } else {
             containerUL.append(containerUL.children('li:first-child'));
           }

@@ -1,8 +1,10 @@
 body {
   padding-bottom: 100px;
+  background-image: url(http://wmh.github.io/circular-slides-generator/static/img/noise.png);
 }
-h1, h2 {
+h1, h2, h3 {
   padding-top: 20px;
+  font-family: 'Amaranth', sans-serif;
 }
 .scroll-text {
   border: 1px solid red;
@@ -43,3 +45,20 @@ h1, h2 {
   width: 680px;
   padding-top: 10px;
 }
+#demo6 {
+  width: 412px;
+}
+#demo6-queue {
+  width: 680px;
+}
+#demo6 p, #demo6-queue p {
+  width: 124px;
+  height: 124px;
+  background-color: lightgray;
+  font-family: 'Amaranth', sans-serif;
+  font-size: 82px;
+  text-align: center;
+  display: table-cell;
+  vertical-align:middle;
+}
+
