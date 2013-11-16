@@ -110,7 +110,7 @@ $.fn.scrollbox = function(config) {
           containerUL.children('li:last-child').insertBefore(containerUL.children('li:first-child'));
         }
 
-        curLi = container.children('li:first-child');
+        curLi = containerUL.children('li:first-child');
         scrollDistance = config.distance !== 'auto' ?
             config.distance :
             config.direction === 'vertical' ? curLi.height() : curLi.width();
