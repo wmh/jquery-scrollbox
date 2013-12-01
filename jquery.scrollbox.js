@@ -61,7 +61,7 @@ $.fn.scrollbox = function(config) {
       curLi = containerUL.children('li:first-child');
 
       scrollDistance = config.distance !== 'auto' ? config.distance :
-        config.direction === 'vertical' ? curLi.height() : curLi.width();
+        config.direction === 'vertical' ? curLi.outerHeight(true) : curLi.outerWidth(true);
 
       // offset
       if (!config.linear) {
