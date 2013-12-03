@@ -48,7 +48,7 @@ $.fn.scrollbox = function(config) {
       container.bind('mouseover', function() { paused = true; });
       container.bind('mouseout', function() { paused = false; });
     }
-    containerUL = container.children(config.listElement + 'ul:first-child');
+    containerUL = container.children(config.listElement + ':first-child');
 
     scrollForward = function() {
       if (paused) {
@@ -60,7 +60,7 @@ $.fn.scrollbox = function(config) {
           scrollDistance,
           theStep;
 
-      curLi = containerUL.children(config.listItemElement + 'li:first-child');
+      curLi = containerUL.children(config.listItemElement + ':first-child');
 
       scrollDistance = config.distance !== 'auto' ? config.distance :
         config.direction === 'vertical' ? curLi.outerHeight(true) : curLi.outerWidth(true);
@@ -76,12 +76,12 @@ $.fn.scrollbox = function(config) {
 
       if (newScrollOffset >= scrollDistance) {
         for (i = 0; i < config.switchItems; i++) {
-            if (config.queue && config.queue.find(config.listItemElement).length > 0) {
-                containerUL.append(config.queue.find(config.listItemElement)[0]);
-                containerUL.children(config.listItemElement + ':first-child').remove();
-            } else {
-                containerUL.append(containerUL.children(config.listItemElement + ':first-child'));
-            }
+          if (config.queue && config.queue.find(config.listItemElement).length > 0) {
+            containerUL.append(config.queue.find(config.listItemElement)[0]);
+            containerUL.children(config.listItemElement + ':first-child').remove();
+          } else {
+            containerUL.append(containerUL.children(config.listItemElement + ':first-child'));
+          }
         }
         container[0][config.scrollOffset] = 0;
         clearInterval(scrollingId);
@@ -109,10 +109,10 @@ $.fn.scrollbox = function(config) {
       if (container[0][config.scrollOffset] === 0) {
         liLen = containerUL.children(config.listItemElement).length;
         for (i = 0; i < config.switchItems; i++) {
-          containerUL.children(config.listItemElement+':last-child').insertBefore(containerUL.children(config.listItemElement+':first-child'));
+          containerUL.children(config.listItemElement + ':last-child').insertBefore(containerUL.children(config.listItemElement+':first-child'));
         }
 
-        curLi = containerUL.children(config.listItemElement+':first-child');
+        curLi = containerUL.children(config.listItemElement + ':first-child');
         scrollDistance = config.distance !== 'auto' ?
             config.distance :
             config.direction === 'vertical' ? curLi.height() : curLi.width();
