@@ -1,3 +1,4 @@
+ /*global jQuery */
 /*!
  * jQuery Scrollbox
  * (c) 2009-2013 Hunter Wu <hunter.wu@gmail.com>
@@ -42,7 +43,9 @@ $.fn.scrollbox = function(config) {
         forward,
         resetClock,
         scrollForward,
-        scrollBackward;
+        scrollBackward,
+        forwardHover,
+        pauseHover;
 
     if (config.onMouseOverPause) {
       container.bind('mouseover', function() { paused = true; });
@@ -140,9 +143,10 @@ $.fn.scrollbox = function(config) {
       clearInterval(scrollingId);
       scrollingId = setInterval(scrollForward, config.speed);
     };
-    
-    // Implements mouseover function. 
+
+    // Implements mouseover function.
     forwardHover = function() {
+        config.autoPlay = true;
         paused = false;
         clearInterval(scrollingId);
         scrollingId = setInterval(scrollForward, config.speed);
