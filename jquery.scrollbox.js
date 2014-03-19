@@ -1,3 +1,4 @@
+ /*global jQuery */
 /*!
  * jQuery Scrollbox
  * (c) 2009-2013 Hunter Wu <hunter.wu@gmail.com>
@@ -22,7 +23,9 @@ $.fn.scrollbox = function(config) {
     autoPlay: true,
     onMouseOverPause: true,
     paused: false,
-    queue: null
+    queue: null,
+    listElement: 'ul',
+    listItemElement:'li'
   };
   config = $.extend(defConfig, config);
   config.scrollOffset = config.direction === 'vertical' ? 'scrollTop' : 'scrollLeft';
@@ -40,13 +43,15 @@ $.fn.scrollbox = function(config) {
         forward,
         resetClock,
         scrollForward,
-        scrollBackward;
+        scrollBackward,
+        forwardHover,
+        pauseHover;
 
     if (config.onMouseOverPause) {
       container.bind('mouseover', function() { paused = true; });
       container.bind('mouseout', function() { paused = false; });
     }
-    containerUL = container.children('ul:first-child');
+    containerUL = container.children(config.listElement + ':first-child');
 
     scrollForward = function() {
       if (paused) {
@@ -58,7 +63,7 @@ $.fn.scrollbox = function(config) {
           scrollDistance,
           theStep;
 
-      curLi = containerUL.children('li:first-child');
+      curLi = containerUL.children(config.listItemElement + ':first-child');
 
       scrollDistance = config.distance !== 'auto' ? config.distance :
         config.direction === 'vertical' ? curLi.outerHeight(true) : curLi.outerWidth(true);
@@ -74,11 +79,11 @@ $.fn.scrollbox = function(config) {
 
       if (newScrollOffset >= scrollDistance) {
         for (i = 0; i < config.switchItems; i++) {
-          if (config.queue && config.queue.find('li').length > 0) {
-            containerUL.append(config.queue.find('li')[0]);
-            containerUL.children('li:first-child').remove();
+          if (config.queue && config.queue.find(config.listItemElement).length > 0) {
+            containerUL.append(config.queue.find(config.listItemElement)[0]);
+            containerUL.children(config.listItemElement + ':first-child').remove();
           } else {
-            containerUL.append(containerUL.children('li:first-child'));
+            containerUL.append(containerUL.children(config.listItemElement + ':first-child'));
           }
         }
         container[0][config.scrollOffset] = 0;
@@ -105,12 +110,12 @@ $.fn.scrollbox = function(config) {
 
       // init
       if (container[0][config.scrollOffset] === 0) {
-        liLen = containerUL.children('li').length;
+        liLen = containerUL.children(config.listItemElement).length;
         for (i = 0; i < config.switchItems; i++) {
-          containerUL.children('li:last-child').insertBefore(containerUL.children('li:first-child'));
+          containerUL.children(config.listItemElement + ':last-child').insertBefore(containerUL.children(config.listItemElement+':first-child'));
         }
 
-        curLi = containerUL.children('li:first-child');
+        curLi = containerUL.children(config.listItemElement + ':first-child');
         scrollDistance = config.distance !== 'auto' ?
             config.distance :
             config.direction === 'vertical' ? curLi.height() : curLi.width();
@@ -139,6 +144,17 @@ $.fn.scrollbox = function(config) {
       scrollingId = setInterval(scrollForward, config.speed);
     };
 
+    // Implements mouseover function.
+    forwardHover = function() {
+        config.autoPlay = true;
+        paused = false;
+        clearInterval(scrollingId);
+        scrollingId = setInterval(scrollForward, config.speed);
+    };
+    pauseHover = function() {
+        paused = true;
+    };
+
     backward = function() {
       clearInterval(scrollingId);
       scrollingId = setInterval(scrollBackward, config.speed);
@@ -159,6 +175,8 @@ $.fn.scrollbox = function(config) {
     // bind events for container
     container.bind('resetClock', function(delay) { resetClock(delay); });
     container.bind('forward', function() { clearTimeout(nextScrollId); forward(); });
+    container.bind('pauseHover', function() { pauseHover(); });
+    container.bind('forwardHover', function() { forwardHover(); });
     container.bind('backward', function() { clearTimeout(nextScrollId); backward(); });
     container.bind('speedUp', function(speed) {
       if (typeof speed === 'undefined') {
