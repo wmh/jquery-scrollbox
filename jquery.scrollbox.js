@@ -140,6 +140,16 @@ $.fn.scrollbox = function(config) {
       clearInterval(scrollingId);
       scrollingId = setInterval(scrollForward, config.speed);
     };
+    
+    // Implements mouseover function. 
+    forwardHover = function() {
+        paused = false;
+        clearInterval(scrollingId);
+        scrollingId = setInterval(scrollForward, config.speed);
+    };
+    pauseHover = function() {
+        paused = true;
+    };
 
     backward = function() {
       clearInterval(scrollingId);
@@ -161,6 +171,8 @@ $.fn.scrollbox = function(config) {
     // bind events for container
     container.bind('resetClock', function(delay) { resetClock(delay); });
     container.bind('forward', function() { clearTimeout(nextScrollId); forward(); });
+    container.bind('pauseHover', function() { pauseHover(); });
+    container.bind('forwardHover', function() { forwardHover(); });
     container.bind('backward', function() { clearTimeout(nextScrollId); backward(); });
     container.bind('speedUp', function(speed) {
       if (typeof speed === 'undefined') {
