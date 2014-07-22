@@ -184,12 +184,18 @@ $.fn.scrollbox = function(config) {
       }
       config.speed = speed;
     });
+    
     container.bind('speedDown', function(speed) {
       if (typeof speed === 'undefined') {
         speed = config.speed * 2;
       }
       config.speed = speed;
     });
+
+    container.bind('updateConfig', function (event,options) {
+        config = $.extend(config, options);
+    });
+
   });
 };
 
