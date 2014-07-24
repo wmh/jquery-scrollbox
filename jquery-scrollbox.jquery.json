@@ -1,6 +1,6 @@
 {
     "name": "jquery-scrollbox",
-    "version": "1.1.0",
+    "version": "1.2.0",
     "title": "jQuery Scrollbox",
     "description": "A simple, lightweight jQuery plugin to scroll a list like carousel or traditional marquee.",
     "keywords": [
