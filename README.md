@@ -1,4 +1,4 @@
-# [jQuery Scrollbox](http://wmh.github.io/jquery-scrollbox/)
+# [jQuery Scrollbox](http://wmh.github.io/jquery-scrollbox/) [![Build Status](https://travis-ci.org/wmh/jquery-scrollbox.svg?branch=master)](https://travis-ci.org/wmh/jquery-scrollbox)
 
 jQuery Scrollbox is a lightweight plugin that enables you to scroll a list of html elements (text, image, etc...) like a carousel slider or traditional marquee.
 
