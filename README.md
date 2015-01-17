@@ -45,6 +45,35 @@ $('#demo').scrollbox();
 
 __http://wmh.github.io/jquery-scrollbox/__
 
+## More examples
+
+### Non-infinite Loop
+
+```js
+$('#demo').scrollbox({
+  infiniteLoop: false,
+  switchAmount: 3
+});
+
+```
+
+### Callback functions
+
+```js
+$('#demo').scrollbox({
+  afterForward: function (data) {
+    console.log(data.currentFirstChild);
+    if (data.switchCount >= 3) {
+      this.trigger('backward');
+    }
+  },
+  afterBackward: function (data) {
+    console.log(data);
+  }
+});
+
+```
+
 ## License
 
 jQuery Scrollbox is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)

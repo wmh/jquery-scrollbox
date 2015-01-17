@@ -25,7 +25,11 @@ $.fn.scrollbox = function(config) {
     paused: false,
     queue: null,
     listElement: 'ul',
-    listItemElement:'li'
+    listItemElement:'li',
+    infiniteLoop: true,     // Infinite loop or not
+    switchAmount: 0,        // Give a number if you don't want to have infinite loop
+    afterForward: null,     // Callback function after each forward action
+    afterBackward: null     // Callback function after each backward action
   };
   config = $.extend(defConfig, config);
   config.scrollOffset = config.direction === 'vertical' ? 'scrollTop' : 'scrollLeft';
@@ -45,13 +49,19 @@ $.fn.scrollbox = function(config) {
         scrollForward,
         scrollBackward,
         forwardHover,
-        pauseHover;
+        pauseHover,
+        switchCount = 0;
 
     if (config.onMouseOverPause) {
       container.bind('mouseover', function() { paused = true; });
       container.bind('mouseout', function() { paused = false; });
     }
     containerUL = container.children(config.listElement + ':first-child');
+
+    // init default switchAmount
+    if (config.infiniteLoop === false && config.switchAmount === 0) {
+      config.switchAmount = containerUL.children().length;
+    }
 
     scrollForward = function() {
       if (paused) {
@@ -85,9 +95,20 @@ $.fn.scrollbox = function(config) {
           } else {
             containerUL.append(containerUL.children(config.listItemElement + ':first-child'));
           }
+          ++switchCount;
         }
         container[0][config.scrollOffset] = 0;
         clearInterval(scrollingId);
+
+        if ($.isFunction(config.afterForward)) {
+          config.afterForward.call(container, {
+            switchCount: switchCount,
+            currentFirstChild: containerUL.children(config.listItemElement + ':first-child')
+          });
+        }
+        if (config.infiniteLoop === false && switchCount >= config.switchAmount) {
+          return;
+        }
         if (config.autoPlay) {
           nextScrollId = setTimeout(forward, config.delay * 1000);
         }
@@ -103,14 +124,12 @@ $.fn.scrollbox = function(config) {
       }
       var curLi,
           i,
-          liLen,
           newScrollOffset,
           scrollDistance,
           theStep;
 
       // init
       if (container[0][config.scrollOffset] === 0) {
-        liLen = containerUL.children(config.listItemElement).length;
         for (i = 0; i < config.switchItems; i++) {
           containerUL.children(config.listItemElement + ':last-child').insertBefore(containerUL.children(config.listItemElement+':first-child'));
         }
@@ -132,7 +151,15 @@ $.fn.scrollbox = function(config) {
       container[0][config.scrollOffset] = newScrollOffset;
 
       if (newScrollOffset === 0) {
+        --switchCount;
         clearInterval(scrollingId);
+
+        if ($.isFunction(config.afterBackward)) {
+          config.afterBackward.call(container, {
+            switchCount: switchCount,
+            currentFirstChild: containerUL.children(config.listItemElement + ':first-child')
+          });
+        }
         if (config.autoPlay) {
           nextScrollId = setTimeout(forward, config.delay * 1000);
         }
@@ -179,20 +206,20 @@ $.fn.scrollbox = function(config) {
     container.bind('forwardHover', function() { forwardHover(); });
     container.bind('backward', function() { clearTimeout(nextScrollId); backward(); });
     container.bind('speedUp', function(speed) {
-      if (typeof speed === 'undefined') {
+      if (speed === 'undefined') {
         speed = Math.max(1, parseInt(config.speed / 2, 10));
       }
       config.speed = speed;
     });
-    
+
     container.bind('speedDown', function(speed) {
-      if (typeof speed === 'undefined') {
+      if (speed === 'undefined') {
         speed = config.speed * 2;
       }
       config.speed = speed;
     });
 
-    container.bind('updateConfig', function (event,options) {
+    container.bind('updateConfig', function (options) {
         config = $.extend(config, options);
     });
 
