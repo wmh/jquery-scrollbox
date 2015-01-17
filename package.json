@@ -1,8 +1,13 @@
 {
   "name": "jquery-scrollbox",
   "version": "1.3.1",
-  "title": "jQuery Scrollbox",
   "description": "A simple, lightweight jQuery plugin to scroll a list like carousel or traditional marquee.",
+  "homepage": "https://github.com/wmh/jquery-scrollbox",
+  "main": "jquery.scrollbox.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wmh/jquery-scrollbox.git"
+  },
   "keywords": [
     "carousel",
     "marquee",
@@ -19,10 +24,12 @@
       "url": "https://github.com/wmh/jquery-scrollbox/blob/master/LICENSE"
     }
   ],
-  "homepage": "https://github.com/wmh/jquery-scrollbox",
-  "demo": "http://wmh.github.io/jquery-scrollbox/",
-  "download": "https://github.com/wmh/jquery-scrollbox/archive/master.zip",
-  "dependencies": {
-    "jquery": ">=1.4"
+  "bugs": {
+    "url": "https://github.com/wmh/jquery-scrollbox/issues"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "grunt-contrib-uglify": "~0.2.7",
+    "grunt-contrib-jshint": "~0.8.0"
   }
 }
