@@ -253,21 +253,21 @@ $.fn.scrollbox = function(config) {
     });
     container.bind('pauseHover', function() { pauseHover(); });
     container.bind('forwardHover', function() { forwardHover(); });
-    container.bind('speedUp', function(speed) {
+    container.bind('speedUp', function(event, speed) {
       if (speed === 'undefined') {
         speed = Math.max(1, parseInt(config.speed / 2, 10));
       }
       config.speed = speed;
     });
 
-    container.bind('speedDown', function(speed) {
+    container.bind('speedDown', function(event, speed) {
       if (speed === 'undefined') {
         speed = config.speed * 2;
       }
       config.speed = speed;
     });
 
-    container.bind('updateConfig', function (options) {
+    container.bind('updateConfig', function (event, options) {
         config = $.extend(config, options);
     });
 
