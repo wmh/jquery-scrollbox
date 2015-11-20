@@ -25,7 +25,12 @@ $.fn.scrollbox = function(config) {
     paused: false,
     queue: null,
     listElement: 'ul',
-    listItemElement:'li'
+    listItemElement:'li',
+    infiniteLoop: true,     // Infinite loop or not
+    switchAmount: 0,        // Give a number if you don't want to have infinite loop
+    afterForward: null,     // Callback function after each forward action
+    afterBackward: null,    // Callback function after each backward action
+    triggerStackable: false // Allow triggers when action is not finish yet
   };
   config = $.extend(defConfig, config);
   config.scrollOffset = config.direction === 'vertical' ? 'scrollTop' : 'scrollLeft';
@@ -39,19 +44,27 @@ $.fn.scrollbox = function(config) {
         scrollingId = null,
         nextScrollId = null,
         paused = false,
+        releaseStack,
         backward,
         forward,
         resetClock,
         scrollForward,
         scrollBackward,
         forwardHover,
-        pauseHover;
+        pauseHover,
+        switchCount = 0,
+        stackedTriggerIndex = 0;
 
     if (config.onMouseOverPause) {
       container.bind('mouseover', function() { paused = true; });
       container.bind('mouseout', function() { paused = false; });
     }
     containerUL = container.children(config.listElement + ':first-child');
+
+    // init default switchAmount
+    if (config.infiniteLoop === false && config.switchAmount === 0) {
+      config.switchAmount = containerUL.children().length;
+    }
 
     scrollForward = function() {
       if (paused) {
@@ -85,9 +98,25 @@ $.fn.scrollbox = function(config) {
           } else {
             containerUL.append(containerUL.children(config.listItemElement + ':first-child'));
           }
+          ++switchCount;
         }
         container[0][config.scrollOffset] = 0;
         clearInterval(scrollingId);
+        scrollingId = null;
+
+        if ($.isFunction(config.afterForward)) {
+          config.afterForward.call(container, {
+            switchCount: switchCount,
+            currentFirstChild: containerUL.children(config.listItemElement + ':first-child')
+          });
+        }
+        if (config.triggerStackable && stackedTriggerIndex !== 0) {
+          releaseStack();
+          return;
+        }
+        if (config.infiniteLoop === false && switchCount >= config.switchAmount) {
+          return;
+        }
         if (config.autoPlay) {
           nextScrollId = setTimeout(forward, config.delay * 1000);
         }
@@ -103,14 +132,12 @@ $.fn.scrollbox = function(config) {
       }
       var curLi,
           i,
-          liLen,
           newScrollOffset,
           scrollDistance,
           theStep;
 
       // init
       if (container[0][config.scrollOffset] === 0) {
-        liLen = containerUL.children(config.listItemElement).length;
         for (i = 0; i < config.switchItems; i++) {
           containerUL.children(config.listItemElement + ':last-child').insertBefore(containerUL.children(config.listItemElement+':first-child'));
         }
@@ -132,16 +159,47 @@ $.fn.scrollbox = function(config) {
       container[0][config.scrollOffset] = newScrollOffset;
 
       if (newScrollOffset === 0) {
+        --switchCount;
         clearInterval(scrollingId);
+        scrollingId = null;
+
+        if ($.isFunction(config.afterBackward)) {
+          config.afterBackward.call(container, {
+            switchCount: switchCount,
+            currentFirstChild: containerUL.children(config.listItemElement + ':first-child')
+          });
+        }
+        if (config.triggerStackable && stackedTriggerIndex !== 0) {
+          releaseStack();
+          return;
+        }
         if (config.autoPlay) {
           nextScrollId = setTimeout(forward, config.delay * 1000);
         }
       }
     };
 
+    releaseStack = function () {
+      if (stackedTriggerIndex === 0) {
+        return;
+      }
+      if (stackedTriggerIndex > 0) {
+        stackedTriggerIndex--;
+        nextScrollId = setTimeout(forward, 0);
+      } else {
+        stackedTriggerIndex++;
+        nextScrollId = setTimeout(backward, 0);
+      }
+    };
+
     forward = function() {
       clearInterval(scrollingId);
       scrollingId = setInterval(scrollForward, config.speed);
+    };
+
+    backward = function() {
+      clearInterval(scrollingId);
+      scrollingId = setInterval(scrollBackward, config.speed);
     };
 
     // Implements mouseover function.
@@ -153,11 +211,6 @@ $.fn.scrollbox = function(config) {
     };
     pauseHover = function() {
         paused = true;
-    };
-
-    backward = function() {
-      clearInterval(scrollingId);
-      scrollingId = setInterval(scrollBackward, config.speed);
     };
 
     resetClock = function(delay) {
@@ -174,25 +227,47 @@ $.fn.scrollbox = function(config) {
 
     // bind events for container
     container.bind('resetClock', function(delay) { resetClock(delay); });
-    container.bind('forward', function() { clearTimeout(nextScrollId); forward(); });
+    container.bind('forward', function() {
+      if (config.triggerStackable) {
+        if (scrollingId !== null) {
+          stackedTriggerIndex++;
+        } else {
+          forward();
+        }
+      } else {
+        clearTimeout(nextScrollId);
+        forward();
+      }
+    });
+    container.bind('backward', function() {
+      if (config.triggerStackable) {
+        if (scrollingId !== null) {
+          stackedTriggerIndex--;
+        } else {
+          backward();
+        }
+      } else {
+        clearTimeout(nextScrollId);
+        backward();
+      }
+    });
     container.bind('pauseHover', function() { pauseHover(); });
     container.bind('forwardHover', function() { forwardHover(); });
-    container.bind('backward', function() { clearTimeout(nextScrollId); backward(); });
-    container.bind('speedUp', function(speed) {
-      if (typeof speed === 'undefined') {
+    container.bind('speedUp', function(event, speed) {
+      if (speed === 'undefined') {
         speed = Math.max(1, parseInt(config.speed / 2, 10));
       }
       config.speed = speed;
     });
-    
-    container.bind('speedDown', function(speed) {
-      if (typeof speed === 'undefined') {
+
+    container.bind('speedDown', function(event, speed) {
+      if (speed === 'undefined') {
         speed = config.speed * 2;
       }
       config.speed = speed;
     });
 
-    container.bind('updateConfig', function (event,options) {
+    container.bind('updateConfig', function (event, options) {
         config = $.extend(config, options);
     });
 
