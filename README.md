@@ -1,4 +1,4 @@
- **This package is abandoned and no longer maintained. The author suggests using the [Owl Carousel 2](OwlCarousel2/OwlCarousel2) plugin instead.**
+This package is abandoned and no longer maintained. The author suggests using the [Owl Carousel 2](https://github.com//OwlCarousel2/OwlCarousel2) plugin instead.
 
 
 # [jQuery Scrollbox](http://wmh.github.io/jquery-scrollbox/) [![Build Status](https://travis-ci.org/wmh/jquery-scrollbox.svg?branch=master)](https://travis-ci.org/wmh/jquery-scrollbox)
