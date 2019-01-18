@@ -1,3 +1,6 @@
+ **This package is abandoned and no longer maintained. The author suggests using the [Owl Carousel 2](OwlCarousel2/OwlCarousel2) plugin instead.**
+
+
 # [jQuery Scrollbox](http://wmh.github.io/jquery-scrollbox/) [![Build Status](https://travis-ci.org/wmh/jquery-scrollbox.svg?branch=master)](https://travis-ci.org/wmh/jquery-scrollbox)
 
 jQuery Scrollbox is a lightweight plugin that enables you to scroll a list of html elements (text, image, etc...) like a carousel slider or traditional marquee.
