@@ -1,6 +1,14 @@
 # [ScrollBox](http://wmh.github.io/jquery-scrollbox/) 
 
+![npm version](https://img.shields.io/npm/v/jquery-scrollbox?label=npm)
+![Zero Dependencies](https://img.shields.io/badge/dependencies-0-brightgreen)
+![Vanilla JS](https://img.shields.io/badge/vanilla-JS-yellow)
+![TypeScript](https://img.shields.io/badge/types-TypeScript-blue)
+![License](https://img.shields.io/badge/license-MIT-green)
+
 **Version 2.0** - Now modernized with vanilla JavaScript! 🎉
+
+> **📢 Important**: Despite the package name `jquery-scrollbox`, version 2.0+ is built with **pure vanilla JavaScript** and has **ZERO dependencies**. jQuery is completely optional and only needed if you want to use the legacy jQuery plugin wrapper.
 
 ScrollBox is a lightweight, dependency-free plugin that enables you to scroll a list of HTML elements (text, images, etc.) like a carousel slider or traditional marquee. Now available in modern ES6+ JavaScript with optional jQuery support for backward compatibility.
 
@@ -26,6 +34,8 @@ ScrollBox is a lightweight, dependency-free plugin that enables you to scroll a 
 ```bash
 npm install jquery-scrollbox
 ```
+
+> **Note**: The package name is `jquery-scrollbox` for historical reasons, but it's now a **modern vanilla JavaScript library** with no dependencies!
 
 ### CDN (Coming soon)
 ```html

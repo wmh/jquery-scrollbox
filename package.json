@@ -1,7 +1,7 @@
 {
   "name": "jquery-scrollbox",
   "version": "2.0.0",
-  "description": "A modern, lightweight scrollbox plugin for creating carousels and marquees. Now available in vanilla JavaScript and jQuery.",
+  "description": "Modern vanilla JavaScript scrollbox plugin for carousels and marquees. Zero dependencies. jQuery wrapper included for backward compatibility.",
   "homepage": "https://github.com/wmh/jquery-scrollbox",
   "main": "scrollbox.js",
   "exports": {
@@ -27,14 +27,20 @@
     "url": "https://github.com/wmh/jquery-scrollbox.git"
   },
   "keywords": [
+    "scrollbox",
     "carousel",
     "marquee",
     "scroll",
-    "scrollbox",
     "vanilla-js",
+    "vanilla-javascript",
+    "zero-dependencies",
+    "no-dependencies",
     "es6",
     "modern",
-    "no-dependencies"
+    "typescript",
+    "jquery",
+    "scroller",
+    "ticker"
   ],
   "author": {
     "name": "Hunter Wu",
