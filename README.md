@@ -1,16 +1,16 @@
-# [ScrollBox](http://wmh.github.io/jquery-scrollbox/) 
+# ScrollBox
 
-![npm version](https://img.shields.io/npm/v/jquery-scrollbox?label=npm)
-![Zero Dependencies](https://img.shields.io/badge/dependencies-0-brightgreen)
-![Vanilla JS](https://img.shields.io/badge/vanilla-JS-yellow)
-![TypeScript](https://img.shields.io/badge/types-TypeScript-blue)
-![License](https://img.shields.io/badge/license-MIT-green)
+![npm version](https://img.shields.io/npm/v/jquery-scrollbox?label=npm&logo=npm)](https://www.npmjs.com/package/jquery-scrollbox)
+[![Zero Dependencies](https://img.shields.io/badge/dependencies-0-brightgreen)](https://github.com/wmh/scrollbox)
+[![Vanilla JS](https://img.shields.io/badge/vanilla-JS-yellow)](https://github.com/wmh/scrollbox)
+[![TypeScript](https://img.shields.io/badge/types-TypeScript-blue)](https://github.com/wmh/scrollbox)
+[![License](https://img.shields.io/badge/license-MIT-green)](https://github.com/wmh/scrollbox/blob/master/LICENSE)
 
-**Version 2.0** - Now modernized with vanilla JavaScript! 🎉
+**Version 2.0** - Modern vanilla JavaScript scrolling plugin 🎉
 
-> **📢 Important**: Despite the package name `jquery-scrollbox`, version 2.0+ is built with **pure vanilla JavaScript** and has **ZERO dependencies**. jQuery is completely optional and only needed if you want to use the legacy jQuery plugin wrapper.
+> **📦 Note**: This package is available on npm as `jquery-scrollbox` for historical reasons. The GitHub repository has been renamed to `scrollbox` to better reflect its modern, dependency-free nature.
 
-ScrollBox is a lightweight, dependency-free plugin that enables you to scroll a list of HTML elements (text, images, etc.) like a carousel slider or traditional marquee. Now available in modern ES6+ JavaScript with optional jQuery support for backward compatibility.
+ScrollBox is a lightweight, zero-dependency plugin that enables you to scroll a list of HTML elements (text, images, etc.) like a carousel slider or traditional marquee. Built with modern ES6+ JavaScript with optional jQuery support for backward compatibility.
 
 ## Features
 
@@ -44,6 +44,11 @@ npm install jquery-scrollbox
 
 ### Direct Download
 Download `scrollbox.js` or `jquery.scrollbox.js` from this repository.
+
+### GitHub
+```bash
+git clone https://github.com/wmh/scrollbox.git
+```
 
 ## Basic Usage
 
@@ -157,7 +162,7 @@ document.getElementById('demo').dispatchEvent(new Event('forward'));
 
 ## Demos
 
-__http://wmh.github.io/jquery-scrollbox/__
+__http://wmh.github.io/scrollbox/__
 
 ## Configuration Options
 

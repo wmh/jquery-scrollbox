@@ -151,5 +151,5 @@ Check out `example-modern.html` for live examples!
 ## Need Help?
 
 - 📖 Read the [full documentation](README.md)
-- 🐛 [Report issues](https://github.com/wmh/jquery-scrollbox/issues)
+- 🐛 [Report issues](https://github.com/wmh/scrollbox/issues)
 - 💡 See [CONTRIBUTING.md](CONTRIBUTING.md) to contribute

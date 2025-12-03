@@ -4,7 +4,7 @@
  * (c) 2009-2013 Hunter Wu <hunter.wu@gmail.com>
  * MIT Licensed.
  *
- * http://github.com/wmh/jquery-scrollbox
+ * https://github.com/wmh/scrollbox
  */
 
 (function($) {

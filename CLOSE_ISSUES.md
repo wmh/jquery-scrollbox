@@ -5,8 +5,8 @@ This document provides instructions and templates for closing old issues after t
 ## Quick Summary
 
 ✅ **v2.0.0 Tag Created and Pushed**: `v2.0.0`  
-📦 **Release**: https://github.com/wmh/jquery-scrollbox/releases/tag/v2.0.0  
-🌐 **Demo**: https://wmh.github.io/jquery-scrollbox/
+📦 **Release**: https://github.com/wmh/scrollbox/releases/tag/v2.0.0  
+🌐 **Demo**: https://wmh.github.io/scrollbox/
 
 ## Issues to Close
 
@@ -85,11 +85,11 @@ This issue has been resolved in ScrollBox v2.0.0 which includes a complete moder
 - Issue #38: Chrome scrollbar jumping - improved scroll offset calculation
 
 **Try it now:**
-- Demo: https://wmh.github.io/jquery-scrollbox/
-- Documentation: https://github.com/wmh/jquery-scrollbox#readme
+- Demo: https://wmh.github.io/scrollbox/
+- Documentation: https://github.com/wmh/scrollbox#readme
 - Install: `npm install jquery-scrollbox`
 
-See [ISSUES_RESOLVED.md](https://github.com/wmh/jquery-scrollbox/blob/master/ISSUES_RESOLVED.md) for detailed information about all fixes.
+See [ISSUES_RESOLVED.md](https://github.com/wmh/scrollbox/blob/master/ISSUES_RESOLVED.md) for detailed information about all fixes.
 
 Thank you for reporting this issue! 🎉
 ```
@@ -108,7 +108,7 @@ This feature request has been addressed in ScrollBox v2.0.0 with enhanced capabi
 - Improved API for custom implementations
 
 **How to implement your use case:**
-See the [ISSUES_RESOLVED.md](https://github.com/wmh/jquery-scrollbox/blob/master/ISSUES_RESOLVED.md) file for code examples and workarounds for your specific scenario.
+See the [ISSUES_RESOLVED.md](https://github.com/wmh/scrollbox/blob/master/ISSUES_RESOLVED.md) file for code examples and workarounds for your specific scenario.
 
 **v2.0.0 Features:**
 - Zero dependencies (pure vanilla JavaScript)
@@ -118,9 +118,9 @@ See the [ISSUES_RESOLVED.md](https://github.com/wmh/jquery-scrollbox/blob/master
 - Comprehensive documentation
 
 **Resources:**
-- Demo: https://wmh.github.io/jquery-scrollbox/
-- Quick Start: https://github.com/wmh/jquery-scrollbox/blob/master/QUICK_START.md
-- Full Docs: https://github.com/wmh/jquery-scrollbox#readme
+- Demo: https://wmh.github.io/scrollbox/
+- Quick Start: https://github.com/wmh/scrollbox/blob/master/QUICK_START.md
+- Full Docs: https://github.com/wmh/scrollbox#readme
 
 If you need additional help implementing your use case, please feel free to open a new issue with your specific requirements! 🚀
 ```
@@ -133,7 +133,7 @@ If you need additional help implementing your use case, please feel free to open
 This feature request has been documented with implementation examples in v2.0.0.
 
 **Implementation Guide:**
-The [ISSUES_RESOLVED.md](https://github.com/wmh/jquery-scrollbox/blob/master/ISSUES_RESOLVED.md) document includes detailed code examples showing how to implement your use case with the new v2.0 API.
+The [ISSUES_RESOLVED.md](https://github.com/wmh/scrollbox/blob/master/ISSUES_RESOLVED.md) document includes detailed code examples showing how to implement your use case with the new v2.0 API.
 
 **v2.0.0 Improvements:**
 - Modern vanilla JavaScript with zero dependencies
@@ -142,10 +142,10 @@ The [ISSUES_RESOLVED.md](https://github.com/wmh/jquery-scrollbox/blob/master/ISS
 - Comprehensive documentation and examples
 
 **Resources:**
-- Demo with 5 examples: https://wmh.github.io/jquery-scrollbox/
-- Quick Start Guide: https://github.com/wmh/jquery-scrollbox/blob/master/QUICK_START.md
-- API Documentation: https://github.com/wmh/jquery-scrollbox#readme
-- Implementation Examples: https://github.com/wmh/jquery-scrollbox/blob/master/ISSUES_RESOLVED.md
+- Demo with 5 examples: https://wmh.github.io/scrollbox/
+- Quick Start Guide: https://github.com/wmh/scrollbox/blob/master/QUICK_START.md
+- API Documentation: https://github.com/wmh/scrollbox#readme
+- Implementation Examples: https://github.com/wmh/scrollbox/blob/master/ISSUES_RESOLVED.md
 
 Feel free to open a new issue if you need help implementing this feature! 📚
 ```
@@ -154,7 +154,7 @@ Feel free to open a new issue if you need help implementing this feature! 📚
 
 ### Via GitHub Web Interface:
 
-1. Go to https://github.com/wmh/jquery-scrollbox/issues
+1. Go to https://github.com/wmh/scrollbox/issues
 2. Click on each issue number
 3. Scroll to the bottom comment box
 4. Paste the appropriate template above
@@ -179,7 +179,7 @@ Feel free to open a new issue if you need help implementing this feature! 📚
 
 ### Create a GitHub Release
 
-1. Go to https://github.com/wmh/jquery-scrollbox/releases
+1. Go to https://github.com/wmh/scrollbox/releases
 2. Click "Draft a new release"
 3. Choose tag: `v2.0.0`
 4. Release title: `v2.0.0 - Complete Modernization`
@@ -224,7 +224,7 @@ Major rewrite with modern JavaScript, zero dependencies, and comprehensive bug f
 
 ## 🌐 Try It Now
 
-- **Demo**: https://wmh.github.io/jquery-scrollbox/
+- **Demo**: https://wmh.github.io/scrollbox/
 - **Install**: `npm install jquery-scrollbox`
 - **CDN**: Coming soon
 
@@ -250,7 +250,7 @@ Thank you to everyone who reported issues and contributed to making ScrollBox be
 
 ---
 
-**Full Changelog**: https://github.com/wmh/jquery-scrollbox/blob/master/CHANGELOG.md
+**Full Changelog**: https://github.com/wmh/scrollbox/blob/master/CHANGELOG.md
 ```
 
 6. Attach files (optional):
@@ -266,7 +266,7 @@ After closing issues, verify:
 
 ✅ All issues are closed with appropriate comments  
 ✅ v2.0.0 release is published  
-✅ Demo site is live at https://wmh.github.io/jquery-scrollbox/  
+✅ Demo site is live at https://wmh.github.io/scrollbox/  
 ✅ NPM package can be updated (if you have access)
 
 ## Next Steps
@@ -291,8 +291,8 @@ After closing issues, verify:
 
 If you encounter any issues or need help:
 - Open a new issue on GitHub
-- Check the documentation: https://github.com/wmh/jquery-scrollbox#readme
-- View the demo: https://wmh.github.io/jquery-scrollbox/
+- Check the documentation: https://github.com/wmh/scrollbox#readme
+- View the demo: https://wmh.github.io/scrollbox/
 
 ---
 

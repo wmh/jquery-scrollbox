@@ -199,9 +199,9 @@ The following files can be removed (kept for backward compatibility):
 
 ## 🔗 Links
 
-- [GitHub Repository](https://github.com/wmh/jquery-scrollbox)
+- [GitHub Repository](https://github.com/wmh/scrollbox)
 - [NPM Package](https://www.npmjs.com/package/jquery-scrollbox)
-- [Demo Site](http://wmh.github.io/jquery-scrollbox/)
+- [Demo Site](http://wmh.github.io/scrollbox/)
 
 ---
 

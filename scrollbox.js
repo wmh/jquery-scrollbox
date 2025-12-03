@@ -4,7 +4,7 @@
  * MIT Licensed.
  *
  * Modernized vanilla JavaScript version with no dependencies
- * http://github.com/wmh/jquery-scrollbox
+ * https://github.com/wmh/scrollbox
  */
 
 class ScrollBox {

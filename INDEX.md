@@ -150,10 +150,10 @@ See [CHANGELOG.md](CHANGELOG.md) for complete details.
 
 ## 🔗 External Links
 
-- [GitHub Repository](https://github.com/wmh/jquery-scrollbox)
+- [GitHub Repository](https://github.com/wmh/scrollbox)
 - [NPM Package](https://www.npmjs.com/package/jquery-scrollbox)
-- [Demo Site](http://wmh.github.io/jquery-scrollbox/)
-- [Issues](https://github.com/wmh/jquery-scrollbox/issues)
+- [Demo Site](http://wmh.github.io/scrollbox/)
+- [Issues](https://github.com/wmh/scrollbox/issues)
 
 ## 💡 Tips
 

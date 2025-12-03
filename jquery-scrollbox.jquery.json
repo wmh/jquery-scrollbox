@@ -16,12 +16,12 @@
   "licenses": [
     {
       "type": "MIT",
-      "url": "https://github.com/wmh/jquery-scrollbox/blob/master/LICENSE"
+      "url": "https://github.com/wmh/scrollbox/blob/master/LICENSE"
     }
   ],
-  "homepage": "https://github.com/wmh/jquery-scrollbox",
+  "homepage": "https://github.com/wmh/scrollbox",
   "demo": "http://wmh.github.io/jquery-scrollbox/",
-  "download": "https://github.com/wmh/jquery-scrollbox/archive/master.zip",
+  "download": "https://github.com/wmh/scrollbox/archive/master.zip",
   "dependencies": {
     "jquery": ">=1.4"
   }
