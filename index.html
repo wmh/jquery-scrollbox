@@ -1,248 +1,557 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>jquery-scrollbox.js demo</title>
-<link href="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.3.2/css/bootstrap.min.css" rel="stylesheet">
-<link href="http://fonts.googleapis.com/css?family=Amaranth:400,700" rel="stylesheet" type="text/css">
-<link href="demo.css" rel="stylesheet">
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-<script src="jquery.scrollbox.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ScrollBox v2.0 - Modern Scrolling Plugin</title>
+  <meta name="description" content="Modern vanilla JavaScript scrollbox plugin for creating carousels and marquees. Zero dependencies, TypeScript support, ES6+.">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+      overflow: hidden;
+    }
+
+    header {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 60px 40px;
+      text-align: center;
+    }
+
+    header h1 {
+      font-size: 3em;
+      margin-bottom: 10px;
+      font-weight: 700;
+    }
+
+    .version-badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.2);
+      padding: 5px 15px;
+      border-radius: 20px;
+      font-size: 0.9em;
+      margin-top: 10px;
+    }
+
+    header p {
+      font-size: 1.2em;
+      margin-top: 20px;
+      opacity: 0.9;
+    }
+
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      padding: 40px;
+      background: #f8f9fa;
+    }
+
+    .feature {
+      text-align: center;
+      padding: 20px;
+    }
+
+    .feature-icon {
+      font-size: 2.5em;
+      margin-bottom: 10px;
+    }
+
+    .feature h3 {
+      margin-bottom: 10px;
+      color: #667eea;
+    }
+
+    .content {
+      padding: 40px;
+    }
+
+    .demo-section {
+      margin-bottom: 60px;
+    }
+
+    .demo-section h2 {
+      color: #667eea;
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 3px solid #667eea;
+      font-size: 1.8em;
+    }
+
+    .demo-description {
+      background: #fffbea;
+      border-left: 4px solid #f39c12;
+      padding: 15px;
+      margin: 20px 0;
+      border-radius: 4px;
+    }
+
+    pre {
+      background: #282c34;
+      color: #abb2bf;
+      padding: 20px;
+      border-radius: 8px;
+      overflow-x: auto;
+      margin: 20px 0;
+      font-size: 0.9em;
+    }
+
+    code {
+      font-family: 'Courier New', monospace;
+    }
+
+    /* ScrollBox Demos */
+    .scroll-text {
+      width: 100%;
+      height: 150px;
+      overflow: hidden;
+      border: 2px solid #667eea;
+      border-radius: 8px;
+      background: #f8f9fa;
+      margin: 20px 0;
+    }
+
+    .scroll-text ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .scroll-text li {
+      padding: 15px 20px;
+      margin: 5px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border-radius: 6px;
+      font-weight: 600;
+    }
+
+    .scroll-text a {
+      color: white;
+      text-decoration: none;
+    }
+
+    .scroll-text a:hover {
+      text-decoration: underline;
+    }
+
+    .scroll-img {
+      width: 100%;
+      height: 200px;
+      overflow: hidden;
+      border: 2px solid #e74c3c;
+      border-radius: 8px;
+      background: #f8f9fa;
+      white-space: nowrap;
+      margin: 20px 0;
+    }
+
+    .scroll-img ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      height: 100%;
+    }
+
+    .scroll-img li {
+      display: inline-block;
+      margin: 10px;
+      vertical-align: top;
+    }
+
+    .scroll-img img {
+      width: 180px;
+      height: 180px;
+      border-radius: 8px;
+      object-fit: cover;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+
+    .controls {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    button {
+      padding: 12px 24px;
+      margin: 5px;
+      font-size: 16px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      background: #667eea;
+      color: white;
+      font-weight: 600;
+      transition: all 0.3s;
+    }
+
+    button:hover {
+      background: #5568d3;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+    }
+
+    button:active {
+      transform: translateY(0);
+    }
+
+    .cta-section {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 60px 40px;
+      text-align: center;
+    }
+
+    .cta-section h2 {
+      color: white;
+      font-size: 2.5em;
+      margin-bottom: 20px;
+    }
+
+    .cta-buttons {
+      margin-top: 30px;
+    }
+
+    .cta-buttons a {
+      display: inline-block;
+      padding: 15px 30px;
+      margin: 10px;
+      background: white;
+      color: #667eea;
+      text-decoration: none;
+      border-radius: 6px;
+      font-weight: 600;
+      transition: all 0.3s;
+    }
+
+    .cta-buttons a:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px;
+      background: #f8f9fa;
+      color: #666;
+    }
+
+    footer a {
+      color: #667eea;
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 768px) {
+      header h1 {
+        font-size: 2em;
+      }
+
+      .content {
+        padding: 20px;
+      }
+
+      .scroll-img {
+        height: 150px;
+      }
+
+      .scroll-img img {
+        width: 120px;
+        height: 120px;
+      }
+    }
+  </style>
 </head>
 <body>
-<div class="container">
-  <div class="masthead">
-    <h1 class="muted">jQuery Scrollbox</h1>
-  </div>
-  <div class="body-content">
+  <div class="container">
+    <!-- Header -->
+    <header>
+      <h1>📦 ScrollBox</h1>
+      <span class="version-badge">v2.0.0</span>
+      <p>Modern JavaScript scrollbox plugin for carousels and marquees</p>
+      <p style="font-size: 1em; margin-top: 10px;">✨ Zero Dependencies • 🚀 ES6+ • 📘 TypeScript • 🔌 jQuery Compatible</p>
+    </header>
 
-    <h2>Example - 1</h2>
-    <pre>
-$('#demo1').scrollbox();</pre>
-    <div id="demo1" class="scroll-text">
-      <ul>
-        <li><a href="http://news.yahoo.com/exclusive-u-directs-agents-cover-program-used-investigate-091643729.html" target="_blank">DEA Mines "National Security" Data To Spy On Americans, Now Concealing Program</a></li>
-        <li><a href="http://www.theguardian.com/science/2013/aug/05/google-sergey-brin-synthetic-beef-hamburger" target="_blank">Sergey Brin invests in synthetic beef</a></li>
-        <li><a href="http://darling.dolezel.info/en/Darling" target="_blank">OS X emulation layer for Linux</a></li>
-        <li><a href="http://www.infinum.co/the-capsized-eight/articles/is-your-android-emulator-just-too-slow" target="_blank">Fast android emulator using Virtualbox</a></li>
-        <li><a href="http://nakedsecurity.sophos.com/2013/08/05/latvia-blocking-extradition-of-gozi-writer-thanks-to-disproportionate-us-sentencing/?utm_source=feedburner&utm_medium=feed&utm_campaign=Feed%3A+nakedsecurity+%28Naked+Security+-+Sophos%29" target="_blank">Latvia blocking extradition of Gozi writer due to disproportionate US sentencing</a></li>
-        <li><a href="https://groups.google.com/forum/#!topic/google-tasks-api/T4kKnEDl6so" target="_blank">Please let me know if I should Stop developing apps for Google</a></li>
-      </ul>
+    <!-- Features -->
+    <div class="features">
+      <div class="feature">
+        <div class="feature-icon">⚡</div>
+        <h3>Zero Dependencies</h3>
+        <p>Pure vanilla JavaScript, no jQuery required</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">🚀</div>
+        <h3>Modern ES6+</h3>
+        <p>Clean class-based architecture</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">📘</div>
+        <h3>TypeScript</h3>
+        <p>Full type definitions included</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">🐛</div>
+        <h3>Bug Fixes</h3>
+        <p>Resolved issues #5, #29, #37, #38</p>
+      </div>
     </div>
 
-    <h2>Example - 2</h2>
-    <pre>$('#demo2').scrollbox({
+    <!-- Demos -->
+    <div class="content">
+      <!-- Demo 1 -->
+      <div class="demo-section">
+        <h2>Demo 1: Vertical Auto-Scroll</h2>
+        <div class="demo-description">
+          <strong>Basic vertical scrolling</strong> with automatic play and pause on hover.
+        </div>
+        <pre><code>const scrollbox = new ScrollBox(document.getElementById('demo1'), {
+  direction: 'vertical',
+  autoPlay: true,
+  delay: 3
+});</code></pre>
+        <div id="demo1" class="scroll-text">
+          <ul>
+            <li><a href="https://github.com/wmh/jquery-scrollbox" target="_blank">🎉 ScrollBox v2.0 Released - Now with Vanilla JavaScript!</a></li>
+            <li><a href="https://github.com/wmh/jquery-scrollbox" target="_blank">✨ Zero Dependencies - Pure Modern JavaScript</a></li>
+            <li><a href="https://github.com/wmh/jquery-scrollbox" target="_blank">🚀 ES6+ Class-based Architecture</a></li>
+            <li><a href="https://github.com/wmh/jquery-scrollbox" target="_blank">📘 Full TypeScript Support Included</a></li>
+            <li><a href="https://github.com/wmh/jquery-scrollbox" target="_blank">🐛 Major Bug Fixes for Chrome, Resize & Events</a></li>
+            <li><a href="https://github.com/wmh/jquery-scrollbox" target="_blank">⭐ Star us on GitHub!</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Demo 2 -->
+      <div class="demo-section">
+        <h2>Demo 2: Linear Marquee Style</h2>
+        <div class="demo-description">
+          <strong>Smooth continuous scrolling</strong> like a traditional marquee.
+        </div>
+        <pre><code>const scrollbox = new ScrollBox(document.getElementById('demo2'), {
+  direction: 'vertical',
   linear: true,
   step: 1,
   delay: 0,
-  speed: 100
-});</pre>
-    <div id="demo2" class="scroll-text">
-      <ul>
-        <li><a href="http://news.yahoo.com/exclusive-u-directs-agents-cover-program-used-investigate-091643729.html" target="_blank">DEA Mines "National Security" Data To Spy On Americans, Now Concealing Program</a></li>
-        <li><a href="http://www.theguardian.com/science/2013/aug/05/google-sergey-brin-synthetic-beef-hamburger" target="_blank">Sergey Brin invests in synthetic beef</a></li>
-        <li><a href="http://darling.dolezel.info/en/Darling" target="_blank">OS X emulation layer for Linux</a></li>
-        <li><a href="http://www.infinum.co/the-capsized-eight/articles/is-your-android-emulator-just-too-slow" target="_blank">Fast android emulator using Virtualbox</a></li>
-        <li><a href="http://nakedsecurity.sophos.com/2013/08/05/latvia-blocking-extradition-of-gozi-writer-thanks-to-disproportionate-us-sentencing/?utm_source=feedburner&utm_medium=feed&utm_campaign=Feed%3A+nakedsecurity+%28Naked+Security+-+Sophos%29" target="_blank">Latvia blocking extradition of Gozi writer due to disproportionate US sentencing</a></li>
-        <li><a href="https://groups.google.com/forum/#!topic/google-tasks-api/T4kKnEDl6so" target="_blank">Please let me know if I should Stop developing apps for Google</a></li>
-      </ul>
-    </div>
+  speed: 50
+});</code></pre>
+        <div id="demo2" class="scroll-text">
+          <ul>
+            <li>📰 Breaking: ScrollBox 2.0 uses modern JavaScript</li>
+            <li>🎯 No jQuery dependency required anymore</li>
+            <li>🔧 Built with Rollup, Babel, and ESLint</li>
+            <li>🌟 Better performance with ES6+ features</li>
+            <li>💡 Full documentation and examples included</li>
+            <li>🎨 Easy to customize with CSS</li>
+          </ul>
+        </div>
+      </div>
 
-    <h2>Example - 3</h2>
-    <pre>$('#demo3').scrollbox({
-  switchItems: 5,
-  distance: 142
+      <!-- Demo 3 -->
+      <div class="demo-section">
+        <h2>Demo 3: Horizontal Image Carousel</h2>
+        <div class="demo-description">
+          <strong>Horizontal scrolling</strong> perfect for image galleries.
+        </div>
+        <pre><code>const scrollbox = new ScrollBox(document.getElementById('demo3'), {
+  direction: 'horizontal',
+  autoPlay: true,
+  delay: 2
+});</code></pre>
+        <div id="demo3" class="scroll-img">
+          <ul>
+            <li><img src="https://picsum.photos/180/180?random=1" alt="Demo 1"></li>
+            <li><img src="https://picsum.photos/180/180?random=2" alt="Demo 2"></li>
+            <li><img src="https://picsum.photos/180/180?random=3" alt="Demo 3"></li>
+            <li><img src="https://picsum.photos/180/180?random=4" alt="Demo 4"></li>
+            <li><img src="https://picsum.photos/180/180?random=5" alt="Demo 5"></li>
+            <li><img src="https://picsum.photos/180/180?random=6" alt="Demo 6"></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Demo 4 -->
+      <div class="demo-section">
+        <h2>Demo 4: Manual Controls</h2>
+        <div class="demo-description">
+          <strong>Control with buttons</strong> - autoplay disabled, manual navigation.
+        </div>
+        <pre><code>const scrollbox = new ScrollBox(document.getElementById('demo4'), {
+  direction: 'vertical',
+  autoPlay: false
 });
-</pre>
-    <div id="demo3" class="scroll-img">
-      <ul>
-        <li><a href="http://www.faceyourmanga.com/mangatar.php?id=234" target="_blank"><img src="img/normal_234.png"></a></li>
-        <li><a href="http://www.faceyourmanga.com/mangatar.php?id=485" target="_blank"><img src="img/normal_485.png"></a></li>
-        <li><a href="http://www.faceyourmanga.com/mangatar.php?id=511" target="_blank"><img src="img/normal_511.png"></a></li>
-        <li><a href="http://www.faceyourmanga.com/mangatar.php?id=725" target="_blank"><img src="img/normal_725.png"></a></li>
-        <li><a href="http://www.faceyourmanga.com/mangatar.php?id=840" target="_blank"><img src="img/normal_840.png"></a></li>
-        <li><a href="http://www.faceyourmanga.com/mangatar.php?id=934" target="_blank"><img src="img/normal_934.png"></a></li>
-        <li><a href="http://www.faceyourmanga.com/mangatar.php?id=1295" target="_blank"><img src="img/normal_1295.png"></a></li>
-        <li><a href="http://www.faceyourmanga.com/mangatar.php?id=1459" target="_blank"><img src="img/normal_1459.png"></a></li>
-        <li><a href="http://www.faceyourmanga.com/mangatar.php?id=1590" target="_blank"><img src="img/normal_1590.png"></a></li>
-        <li><a href="http://www.faceyourmanga.com/mangatar.php?id=1688" target="_blank"><img src="img/normal_1688.png"></a></li>
-        <li><a href="http://www.faceyourmanga.com/mangatar.php?id=3206" target="_blank"><img src="img/normal_3206.png"></a></li>
-        <li><a href="http://www.faceyourmanga.com/mangatar.php?id=3810" target="_blank"><img src="img/normal_3810.png"></a></li>
-        <li><a href="http://www.faceyourmanga.com/mangatar.php?id=5176" target="_blank"><img src="img/normal_5176.png"></a></li>
-        <li><a href="http://www.faceyourmanga.com/mangatar.php?id=6861" target="_blank"><img src="img/normal_6861.png"></a></li>
-        <li><a href="http://www.faceyourmanga.com/mangatar.php?id=7004" target="_blank"><img src="img/normal_7004.png"></a></li>
-      </ul>
+
+// Control with events
+document.getElementById('prev').addEventListener('click', () => {
+  document.getElementById('demo4').dispatchEvent(new Event('backward'));
+});</code></pre>
+        <div id="demo4" class="scroll-text">
+          <ul>
+            <li>🎮 Item 1 - Manually controlled scrolling</li>
+            <li>🎯 Item 2 - Use the buttons below to navigate</li>
+            <li>⚡ Item 3 - No auto-scroll enabled</li>
+            <li>🎨 Item 4 - Perfect for user-controlled interfaces</li>
+            <li>🚀 Item 5 - Modern event-driven architecture</li>
+            <li>💡 Item 6 - Easy to integrate with your UI</li>
+          </ul>
+        </div>
+        <div class="controls">
+          <button id="prev-btn">⬅️ Previous</button>
+          <button id="pause-btn">⏸️ Pause</button>
+          <button id="play-btn">▶️ Play</button>
+          <button id="next-btn">Next ➡️</button>
+        </div>
+      </div>
+
+      <!-- Demo 5 - jQuery -->
+      <div class="demo-section">
+        <h2>Demo 5: jQuery Version (Legacy Support)</h2>
+        <div class="demo-description">
+          <strong>jQuery plugin wrapper</strong> for backward compatibility.
+        </div>
+        <pre><code>// Still works with jQuery!
+$('#demo5').scrollbox({
+  direction: 'vertical',
+  autoPlay: true,
+  delay: 3
+});</code></pre>
+        <div id="demo5" class="scroll-text">
+          <ul>
+            <li>🔌 Backward compatible with jQuery</li>
+            <li>💾 Your existing code still works!</li>
+            <li>🔄 Same API as version 1.x</li>
+            <li>✅ No breaking changes for jQuery users</li>
+            <li>🎯 But we recommend using vanilla JS for new projects</li>
+            <li>⚡ Better performance without jQuery dependency</li>
+          </ul>
+        </div>
+      </div>
     </div>
 
-    <h2>Example - 4</h2>
-    <pre>$('#demo4').scrollbox({
-  direction: 'h',
-  switchItems: 5,
-  distance: 670
-});
-</pre>
-    <div id="demo4" class="scroll-img">
-      <ul>
-        <li><a href="http://www.faceyourmanga.com/mangatar.php?id=234" target="_blank"><img src="img/normal_234.png"></a></li>
-        <li><a href="http://www.faceyourmanga.com/mangatar.php?id=485" target="_blank"><img src="img/normal_485.png"></a></li>
-        <li><a href="http://www.faceyourmanga.com/mangatar.php?id=511" target="_blank"><img src="img/normal_511.png"></a></li>
-        <li><a href="http://www.faceyourmanga.com/mangatar.php?id=725" target="_blank"><img src="img/normal_725.png"></a></li>
-        <li><a href="http://www.faceyourmanga.com/mangatar.php?id=840" target="_blank"><img src="img/normal_840.png"></a></li>
-        <li><a href="http://www.faceyourmanga.com/mangatar.php?id=934" target="_blank"><img src="img/normal_934.png"></a></li>
-        <li><a href="http://www.faceyourmanga.com/mangatar.php?id=1295" target="_blank"><img src="img/normal_1295.png"></a></li>
-        <li><a href="http://www.faceyourmanga.com/mangatar.php?id=1459" target="_blank"><img src="img/normal_1459.png"></a></li>
-        <li><a href="http://www.faceyourmanga.com/mangatar.php?id=1590" target="_blank"><img src="img/normal_1590.png"></a></li>
-        <li><a href="http://www.faceyourmanga.com/mangatar.php?id=1688" target="_blank"><img src="img/normal_1688.png"></a></li>
-        <li><a href="http://www.faceyourmanga.com/mangatar.php?id=3206" target="_blank"><img src="img/normal_3206.png"></a></li>
-        <li><a href="http://www.faceyourmanga.com/mangatar.php?id=3810" target="_blank"><img src="img/normal_3810.png"></a></li>
-        <li><a href="http://www.faceyourmanga.com/mangatar.php?id=5176" target="_blank"><img src="img/normal_5176.png"></a></li>
-        <li><a href="http://www.faceyourmanga.com/mangatar.php?id=6861" target="_blank"><img src="img/normal_6861.png"></a></li>
-        <li><a href="http://www.faceyourmanga.com/mangatar.php?id=7004" target="_blank"><img src="img/normal_7004.png"></a></li>
-      </ul>
+    <!-- CTA Section -->
+    <div class="cta-section">
+      <h2>Ready to Get Started?</h2>
+      <p style="font-size: 1.2em; margin-top: 20px;">
+        Modern, lightweight, and dependency-free scrollbox plugin
+      </p>
+      <div class="cta-buttons">
+        <a href="https://github.com/wmh/jquery-scrollbox" target="_blank">📦 View on GitHub</a>
+        <a href="https://github.com/wmh/jquery-scrollbox#readme" target="_blank">📚 Documentation</a>
+        <a href="https://github.com/wmh/jquery-scrollbox/archive/refs/heads/master.zip">⬇️ Download</a>
+      </div>
+      <p style="margin-top: 30px; font-size: 0.9em;">
+        npm install jquery-scrollbox
+      </p>
     </div>
 
-    <h2>Example - 5</h2>
-    <pre>$('#demo5').scrollbox({
-  direction: 'h',
-  distance: 140
-});
-$('#demo5-backward').click(function () {
-  $('#demo5').trigger('backward');
-});
-$('#demo5-forward').click(function () {
-  $('#demo5').trigger('forward');
-});</pre>
-    <div id="demo5" class="scroll-img">
-      <ul>
-        <li><a href="http://www.faceyourmanga.com/mangatar.php?id=234" target="_blank"><img src="img/normal_234.png"></a></li>
-        <li><a href="http://www.faceyourmanga.com/mangatar.php?id=485" target="_blank"><img src="img/normal_485.png"></a></li>
-        <li><a href="http://www.faceyourmanga.com/mangatar.php?id=511" target="_blank"><img src="img/normal_511.png"></a></li>
-        <li><a href="http://www.faceyourmanga.com/mangatar.php?id=725" target="_blank"><img src="img/normal_725.png"></a></li>
-        <li><a href="http://www.faceyourmanga.com/mangatar.php?id=840" target="_blank"><img src="img/normal_840.png"></a></li>
-        <li><a href="http://www.faceyourmanga.com/mangatar.php?id=934" target="_blank"><img src="img/normal_934.png"></a></li>
-        <li><a href="http://www.faceyourmanga.com/mangatar.php?id=1295" target="_blank"><img src="img/normal_1295.png"></a></li>
-        <li><a href="http://www.faceyourmanga.com/mangatar.php?id=1459" target="_blank"><img src="img/normal_1459.png"></a></li>
-        <li><a href="http://www.faceyourmanga.com/mangatar.php?id=1590" target="_blank"><img src="img/normal_1590.png"></a></li>
-        <li><a href="http://www.faceyourmanga.com/mangatar.php?id=1688" target="_blank"><img src="img/normal_1688.png"></a></li>
-        <li><a href="http://www.faceyourmanga.com/mangatar.php?id=3206" target="_blank"><img src="img/normal_3206.png"></a></li>
-        <li><a href="http://www.faceyourmanga.com/mangatar.php?id=3810" target="_blank"><img src="img/normal_3810.png"></a></li>
-        <li><a href="http://www.faceyourmanga.com/mangatar.php?id=5176" target="_blank"><img src="img/normal_5176.png"></a></li>
-        <li><a href="http://www.faceyourmanga.com/mangatar.php?id=6861" target="_blank"><img src="img/normal_6861.png"></a></li>
-        <li><a href="http://www.faceyourmanga.com/mangatar.php?id=7004" target="_blank"><img src="img/normal_7004.png"></a></li>
-      </ul>
-    </div>
-    <div id="demo5-btn" class="text-center">
-      <button class="btn" id="demo5-backward"><i class="icon-chevron-left"></i> Backward</button>
-      <button class="btn" id="demo5-forward">Forward <i class="icon-chevron-right"></i></button>
-    </div>
-
-    <h2>Example - 6</h2>
-    <pre>$('#demo6').scrollbox({
-  direction: 'h',
-  distance: 140,
-  queue: 'demo6-queue'
-});</pre>
-    <div id="demo6" class="scroll-img">
-      <ul>
-        <li><p>1</p></li>
-        <li><p>2</p></li>
-        <li><p>3</p></li>
-        <li><p>4</p></li>
-      </ul>
-    </div>
-
-    <h3>queue container:</h3>
-    <p>You can append items here, which are pulling from the server side.</p>
-    <div id="demo6-queue" class="scroll-img">
-      <ul>
-        <li><p>5</p></li>
-        <li><p>6</p></li>
-      </ul>
-    </div>
-
-    <h2>Example - 7</h2>
-    <p>Hover an element to trigger forward action.</p>
-    <pre>$('#demo7').scrollbox({
-  linear: true,
-  delay: 0,
-  speed: 60,
-  autoPlay: false,
-  onMouseOverPause: false
-});
-$('#demo7-forward').mouseover (function () {
-  $('#demo7').trigger('forwardHover');
-}).mouseout(function() {
-  $('#demo7').trigger('pauseHover');
-});</pre>
-    <div id="demo7" class="scroll-text">
-      <ul>
-        <li><a href="http://blog.imgtec.com/powervr-developers/powervr-gr6500-ray-tracing" target="_blank">PowerVR GR6500: Ray tracing is the future and the future is now</a></li>
-        <li><a href="https://blog.mozilla.org/blog/2014/03/18/mozilla-and-unity-deliver-award-winning-game-engine-to-the-web/" target="_blank">Mozilla and Unity Bring Unity Game Engine to WebGL</a></li>
-        <li><a href="http://starkravingvc.com/2014/03/18/to-protect-legitimate-interests-seattle-should-cap-all-forms-of-innovation-immediately/" target="_blank">To Protect Legitimate Interests, Seattle Should Cap All Forms of Innovation</a></li>
-        <li><a href="http://blackhole12.blogspot.com/2014/03/the-problem-with-photorealism.html" target="_blank">The Problem With Photorealism</a></li>
-        <li><a href="http://hackeradam17.com/2014/03/18/an-introduction-to-x86_64-assembly-language/">An Introduction to x86_64 Assembly Language</a></li>
-        <li><a href="http://nginx.org/en/security_advisories.html?1.5.12">Nginx SPDY heap buffer overflow (affects 1.3.15 – 1.5.11)</a>></li>
-      </ul>
-    </div>
-    <div id="demo7-btn">
-      <button class="btn" id="demo7-forward"><i class="icon-arrow-down"></i> <i class="icon-arrow-down"></i> <i class="icon-arrow-down"></i> Hover Me <i class="icon-arrow-down"></i> <i class="icon-arrow-down"></i> <i class="icon-arrow-down"></i></button>
-    </div>
-
+    <!-- Footer -->
+    <footer>
+      <p>
+        ScrollBox v2.0.0 | 
+        <a href="https://github.com/wmh/jquery-scrollbox" target="_blank">GitHub</a> | 
+        <a href="https://github.com/wmh/jquery-scrollbox/blob/master/LICENSE" target="_blank">MIT License</a> | 
+        Created by <a href="https://github.com/wmh" target="_blank">Hunter Wu</a>
+      </p>
+      <p style="margin-top: 10px; font-size: 0.9em;">
+        Modernized December 2024 | Zero Dependencies | ES6+ | TypeScript Support
+      </p>
+    </footer>
   </div>
-</div>
-<a href="https://github.com/wmh/jquery-scrollbox"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
-<script>
-$(function () {
-  $('#demo1').scrollbox();
-  $('#demo2').scrollbox({
-    linear: true,
-    step: 1,
-    delay: 0,
-    speed: 100
-  });
-  $('#demo3').scrollbox({
-    switchItems: 5,
-    distance: 144
-  });
-  $('#demo4').scrollbox({
-    direction: 'h',
-    switchItems: 5,
-    distance: 670
-  });
-  $('#demo5').scrollbox({
-    direction: 'h',
-    distance: 134
-  });
-  $('#demo5-backward').click(function () {
-    $('#demo5').trigger('backward');
-  });
-  $('#demo5-forward').click(function () {
-    $('#demo5').trigger('forward');
-  });
-  $('#demo6').scrollbox({
-    direction: 'h',
-    distance: 134,
-    queue: 'demo6-queue'
-  });
-  var queueNext = 7;
-  (function () {
-    $('#demo6-queue ul').append('<li><p>'+ queueNext +'</p></li>');
-    queueNext++;
-    setTimeout(arguments.callee, 2000 + parseInt(Math.random() * 2000, 10));
-  }());
 
-  $('#demo7').scrollbox({
-    linear: true,
-    delay: 0,
-    speed: 60,
-    autoPlay: false,
-    onMouseOverPause: false
-  });
-  $('#demo7-forward').mouseover (function () {
-    $('#demo7').trigger('forwardHover');
-  }).mouseout(function() {
-    $('#demo7').trigger('pauseHover');
-  });
-});
-</script>
+  <!-- Scripts -->
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="scrollbox.js"></script>
+  <script src="jquery.scrollbox.js"></script>
+  <script>
+    // Demo 1: Vertical auto-scroll
+    const demo1 = new ScrollBox(document.getElementById('demo1'), {
+      direction: 'vertical',
+      autoPlay: true,
+      delay: 3,
+      onMouseOverPause: true
+    });
+
+    // Demo 2: Linear marquee
+    const demo2 = new ScrollBox(document.getElementById('demo2'), {
+      direction: 'vertical',
+      linear: true,
+      step: 1,
+      delay: 0,
+      speed: 50,
+      onMouseOverPause: true
+    });
+
+    // Demo 3: Horizontal images
+    const demo3 = new ScrollBox(document.getElementById('demo3'), {
+      direction: 'horizontal',
+      autoPlay: true,
+      delay: 2,
+      onMouseOverPause: true
+    });
+
+    // Demo 4: Manual controls
+    const demo4 = new ScrollBox(document.getElementById('demo4'), {
+      direction: 'vertical',
+      autoPlay: false
+    });
+
+    let demo4Playing = false;
+
+    document.getElementById('prev-btn').addEventListener('click', () => {
+      document.getElementById('demo4').dispatchEvent(new Event('backward'));
+    });
+
+    document.getElementById('next-btn').addEventListener('click', () => {
+      document.getElementById('demo4').dispatchEvent(new Event('forward'));
+    });
+
+    document.getElementById('pause-btn').addEventListener('click', () => {
+      demo4.paused = true;
+      demo4.config.autoPlay = false;
+      demo4Playing = false;
+    });
+
+    document.getElementById('play-btn').addEventListener('click', () => {
+      if (!demo4Playing) {
+        demo4.paused = false;
+        demo4.config.autoPlay = true;
+        document.getElementById('demo4').dispatchEvent(new Event('forward'));
+        demo4Playing = true;
+      }
+    });
+
+    // Demo 5: jQuery version (for compatibility demo)
+    $('#demo5').scrollbox({
+      direction: 'vertical',
+      autoPlay: true,
+      delay: 3,
+      onMouseOverPause: true
+    });
+
+    // Log to console
+    console.log('ScrollBox v2.0 demos initialized!');
+    console.log('Vanilla JS instances:', { demo1, demo2, demo3, demo4 });
+  </script>
 </body>
 </html>
