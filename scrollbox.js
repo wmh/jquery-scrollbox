@@ -105,6 +105,9 @@ class ScrollBox {
     this.element[this.config.scrollOffset] = newScrollOffset;
 
     if (newScrollOffset >= scrollDistance) {
+      // Reset scroll BEFORE moving elements to prevent bounce
+      this.element[this.config.scrollOffset] = 0;
+      
       for (let i = 0; i < this.config.switchItems; i++) {
         if (this.config.queue && this.config.queue.querySelector(this.config.listItemElement)) {
           this.containerUL.appendChild(this.config.queue.querySelector(this.config.listItemElement));
@@ -118,10 +121,6 @@ class ScrollBox {
         this.switchCount++;
       }
 
-      // Use requestAnimationFrame to ensure smooth reset after DOM updates
-      requestAnimationFrame(() => {
-        this.element[this.config.scrollOffset] = 0;
-      });
       clearInterval(this.scrollingId);
       this.scrollingId = null;
 
@@ -151,27 +150,27 @@ class ScrollBox {
     if (this.paused) return;
 
     if (this.element[this.config.scrollOffset] === 0) {
-      for (let i = 0; i < this.config.switchItems; i++) {
-        const lastChild = this.containerUL.querySelector(`${this.config.listItemElement}:last-child`);
-        const firstChild = this.containerUL.querySelector(`${this.config.listItemElement}:first-child`);
-        if (lastChild && firstChild) {
-          this.containerUL.insertBefore(lastChild, firstChild);
-        }
-      }
-
-      const curLi = this.containerUL.querySelector(`${this.config.listItemElement}:first-child`);
-      if (!curLi) return;
+      // Get scroll distance BEFORE moving elements
+      const lastChild = this.containerUL.querySelector(`${this.config.listItemElement}:last-child`);
+      if (!lastChild) return;
 
       const scrollDistance = this.config.distance !== 'auto'
         ? this.config.distance
         : this.config.direction === 'vertical'
-          ? curLi.offsetHeight
-          : curLi.offsetWidth;
+          ? lastChild.offsetHeight
+          : lastChild.offsetWidth;
 
-      // Use requestAnimationFrame to ensure smooth positioning after DOM updates
-      requestAnimationFrame(() => {
-        this.element[this.config.scrollOffset] = scrollDistance;
-      });
+      // Set scroll position BEFORE moving elements
+      this.element[this.config.scrollOffset] = scrollDistance;
+
+      for (let i = 0; i < this.config.switchItems; i++) {
+        const last = this.containerUL.querySelector(`${this.config.listItemElement}:last-child`);
+        const first = this.containerUL.querySelector(`${this.config.listItemElement}:first-child`);
+        if (last && first) {
+          this.containerUL.insertBefore(last, first);
+        }
+      }
+
       return;
     }
 
