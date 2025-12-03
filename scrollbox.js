@@ -4,7 +4,7 @@
  * MIT Licensed.
  *
  * Modernized vanilla JavaScript version with no dependencies
- * http://github.com/wmh/jquery-scrollbox
+ * https://github.com/wmh/scrollbox
  */
 
 class ScrollBox {
@@ -118,7 +118,10 @@ class ScrollBox {
         this.switchCount++;
       }
 
-      this.element[this.config.scrollOffset] = 0;
+      // Use requestAnimationFrame to ensure smooth reset after DOM updates
+      requestAnimationFrame(() => {
+        this.element[this.config.scrollOffset] = 0;
+      });
       clearInterval(this.scrollingId);
       this.scrollingId = null;
 
@@ -165,7 +168,11 @@ class ScrollBox {
           ? curLi.offsetHeight
           : curLi.offsetWidth;
 
-      this.element[this.config.scrollOffset] = scrollDistance;
+      // Use requestAnimationFrame to ensure smooth positioning after DOM updates
+      requestAnimationFrame(() => {
+        this.element[this.config.scrollOffset] = scrollDistance;
+      });
+      return;
     }
 
     let newScrollOffset;
