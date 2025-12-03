@@ -1,9 +1,27 @@
 {
   "name": "jquery-scrollbox",
-  "version": "1.4.2",
-  "description": "A simple, lightweight jQuery plugin to scroll a list like carousel or traditional marquee.",
+  "version": "2.0.0",
+  "description": "A modern, lightweight scrollbox plugin for creating carousels and marquees. Now available in vanilla JavaScript and jQuery.",
   "homepage": "https://github.com/wmh/jquery-scrollbox",
-  "main": "jquery.scrollbox.js",
+  "main": "scrollbox.js",
+  "exports": {
+    ".": {
+      "import": "./scrollbox.js",
+      "require": "./scrollbox.js"
+    },
+    "./jquery": "./jquery.scrollbox.js"
+  },
+  "type": "module",
+  "types": "scrollbox.d.ts",
+  "files": [
+    "scrollbox.js",
+    "scrollbox.d.ts",
+    "jquery.scrollbox.js",
+    "jquery.scrollbox.min.js",
+    "dist/",
+    "LICENSE",
+    "README.md"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/wmh/jquery-scrollbox.git"
@@ -11,25 +29,42 @@
   "keywords": [
     "carousel",
     "marquee",
-    "scroll"
+    "scroll",
+    "scrollbox",
+    "vanilla-js",
+    "es6",
+    "modern",
+    "no-dependencies"
   ],
   "author": {
     "name": "Hunter Wu",
     "url": "https://github.com/wmh/",
     "email": "hunter.wu@gmail.com"
   },
-  "licenses": [
-    {
-      "type": "MIT",
-      "url": "https://github.com/wmh/jquery-scrollbox/blob/master/LICENSE"
-    }
-  ],
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/wmh/jquery-scrollbox/issues"
   },
+  "scripts": {
+    "build": "npm run build:modern && npm run build:legacy && npm run minify",
+    "build:modern": "rollup -c",
+    "build:legacy": "babel scrollbox.js -o dist/scrollbox.es5.js",
+    "minify": "terser dist/scrollbox.js -o dist/scrollbox.min.js --compress --mangle && terser jquery.scrollbox.js -o jquery.scrollbox.min.js --compress --mangle",
+    "lint": "eslint scrollbox.js jquery.scrollbox.js",
+    "test": "echo \"No tests specified yet\" && exit 0"
+  },
   "devDependencies": {
-    "grunt": "~0.4.1",
-    "grunt-contrib-uglify": "~0.2.7",
-    "grunt-contrib-jshint": "~0.8.0"
+    "@babel/cli": "^7.24.0",
+    "@babel/core": "^7.24.0",
+    "@babel/preset-env": "^7.24.0",
+    "@rollup/plugin-babel": "^6.0.4",
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "@rollup/plugin-terser": "^0.4.4",
+    "eslint": "^8.57.0",
+    "rollup": "^4.18.0",
+    "terser": "^5.31.0"
+  },
+  "engines": {
+    "node": ">=14.0.0"
   }
 }
