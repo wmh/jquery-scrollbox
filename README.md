@@ -5,6 +5,7 @@
 [![Vanilla JS](https://img.shields.io/badge/vanilla-JS-yellow)](https://github.com/wmh/scrollbox)
 [![TypeScript](https://img.shields.io/badge/types-TypeScript-blue)](https://github.com/wmh/scrollbox)
 [![License](https://img.shields.io/badge/license-MIT-green)](https://github.com/wmh/scrollbox/blob/master/LICENSE)
+[![Sponsor](https://img.shields.io/badge/sponsor-💖-ff69b4)](https://github.com/sponsors/wmh)
 
 **Version 2.0** - Modern vanilla JavaScript scrolling plugin 🎉
 
@@ -259,6 +260,10 @@ $('#backward-btn').click(function() {
   $('#demo').trigger('backward');
 });
 ```
+
+## Support the Project
+
+If you find ScrollBox helpful, consider [sponsoring me on GitHub](https://github.com/sponsors/wmh) ☕ Your support helps maintain and improve this project!
 
 ## License
 
